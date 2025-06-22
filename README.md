@@ -6,11 +6,11 @@
 
 ## ✨ Features
 
-- Submit AMPL or other model jobs to NEOS directly from Excel
+- Submit AMPL or other model jobs to NEOS directly from Excel, after automatically scan the model and match the named cells from the spreadsheet
 - Leverage Python via `xlwings` without leaving your spreadsheet
 - Track job results and display outputs in Excel
 - Simple setup with template-based project structure
-
+![datanames](images/datanames.png)
 ---
 
 ## 🚀 Installation
@@ -68,9 +68,13 @@ This will create a folder `myproject/` with:
 ### 4. Customize
 
 You can update:
-- The Excel sheet (e.g., input/output cells)
-- The Python script (`xneos_main.py`) to match your own model and data
+- The Excel sheet (e.g., input/output cells) 
+    - use the name manager (in the Formulas Ribbon) to define the inputs and outputs
+    - put your model into 'model_text' by default.
+
+    ![name manager](images/namemgr.png)
 - The `.xlsm` macro to trigger additional logic
+- The Python script (`xneos_main.py`) to match your own model and data
 
 ---
 
