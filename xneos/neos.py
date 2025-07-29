@@ -110,8 +110,8 @@ def generate_ampl_data_from_excel(sheet, sets, params):
                 dat += ";\n\n"
             else:
                 print(f"[WARN] Unsupported param dimension > 2 for {name}")
-        except:
-            print(f"[WARN] param '{name}' not found or failed to process")
+        except Exception as e:
+            print(f"[WARN] param '{name}' not found or failed to process: {e}")
 
     return dat
 
@@ -165,6 +165,9 @@ end;
     job_number, password = neos().submitJob(xml)
     return job_number, password
 
+def neo_job_done(job_id, password):
+    return neos().getJobStatus(job_id, password) == "Done"
+
 def neos_update(sheet_name, model_text, job_id, password):
     sheet = xw.Book.caller().sheets[sheet_name]
     job_id=int(job_id)
@@ -181,7 +184,7 @@ def neos_update(sheet_name, model_text, job_id, password):
 
     segments = re.split(r"_display.*", result_text)
     if len(segments) < 2 or len(segments[0])<20 or "Objective" not in segments[0]:
-        if len(result_text.splitlines())>10:
+        # if len(result_text.splitlines())>10:
             print (f"No results found {job_id}\n" + result_text)
             return False
     
