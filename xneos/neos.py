@@ -171,8 +171,10 @@ def neo_job_done(job_id, password):
 def neos_update(sheet_name, model_text, job_id, password):
     sheet = xw.Book.caller().sheets[sheet_name]
     job_id=int(job_id)
+    if len(model_text)<30:
+        model_text=sheet.range(model_text).value
     try:
-        _, _,  displays = scan_model_keywords(sheet.range(model_text).value)
+        _, _,  displays = scan_model_keywords(model_text)
     except Exception:
         print( f"Failed to parse model {job_id} ")
         return False
